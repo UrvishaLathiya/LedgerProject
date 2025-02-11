@@ -21,7 +21,7 @@
             <table class="table table-bordered table-striped">
                 <thead class="table-dark">
                     <tr>
-                        <th>ID</th>
+                        <th>IDD</th>
                         <th>Ledger Name</th>
                         <th>Group ID</th>
                         <th>Group Name</th>
