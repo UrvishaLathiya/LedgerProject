@@ -23,7 +23,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Ledger Name</th>
-                        <th>Group IDD</th>
+                        <th>Group ID</th>
                         <th>Group Name</th>
                         <th>Sub Group ID</th>
        					<th>Sub Group Name</th> 
