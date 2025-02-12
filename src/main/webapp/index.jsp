@@ -22,7 +22,7 @@
                 <thead class="table-dark">
                     <tr>
                         <th>ID</th>
-                        <th>Ledger Namee</th>
+                        <th>Ledger Name</th>
                         <th>Group ID</th>
                         <th>Group Name</th>
                         <th>Sub Group ID</th>
