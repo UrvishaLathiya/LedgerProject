@@ -10,16 +10,27 @@
 </head>
 <body>
     <div class="container mt-5">
-        <h2 class="text-center">Ledger Records</h2>
+        <h2 class="text-center">Ledger Records</h2><br><br>
+        
+        <form method="get" action="LedgerFilterController" class="d-flex align-items-center">
+		    <input type="text" name="ledgerName" class="form-control me-2" placeholder="Enter Ledger Name">
+		    <input type="text" name="groupName" class="form-control me-2" placeholder="Enter Group Name">
+		    <input type="text" name="subGroupName" class="form-control me-2" placeholder="Enter Sub Group Name">
+		    <button type="submit" class="btn btn-primary">Search</button>
+		</form><br><br>
+        
 
         <%
-            LedgerDAO ledgerDAO = new LedgerDAO();
-            List<Ledger> ledgerList = ledgerDAO.getAll();
+            List<Ledger> ledgerList = (List<Ledger>) request.getAttribute("ledgerList");
+            if (ledgerList == null) {
+                LedgerDAO ledgerDAO = new LedgerDAO();
+                ledgerList = ledgerDAO.getAll(); 
+            }
         %>
 
         <div class="table-responsive">
             <table class="table table-bordered table-striped">
-                <thead class="table-dark">
+                <thead class="table-primary">
                     <tr>
                         <th>ID</th>
                         <th>Ledger Name</th>
