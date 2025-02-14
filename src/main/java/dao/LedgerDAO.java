@@ -32,7 +32,7 @@ public class LedgerDAO {
 	               "ORDER BY \n" +
 	               "    g.ledger_name ASC, \n" +
 	               "    sg.ledger_name ASC, \n" +
-	               "    l.ledger_name ASC;";
+	               "    l.ledger_name ASC limit 100;";
 	    
 	    try (Connection con = DbConnection.getConnection();
 	         PreparedStatement ps = con.prepareStatement(query);
@@ -79,7 +79,7 @@ public class LedgerDAO {
 	    return l1;  
 	}
 
-	public static List<Ledger> getFilteredLedgers(String ledgerName, String groupName, String subGroupName) {
+	public static List<Ledger> getFilteredLedgers(String ledgerName, String groupName, String subGroupName, int apVersion) {
 	    List<Ledger> ledgers = new ArrayList<>();
 	    
 	    StringBuilder query = new StringBuilder(
@@ -106,15 +106,23 @@ public class LedgerDAO {
 	        query.append(" AND sg.ledger_name ILIKE ?");
 	        params.add("%" + subGroupName.trim() + "%");
 	    }
+	    if (apVersion!= 0) {
+	        query.append(" AND l.ap_version = ?");
+	    }
 
 	    query.append(" ORDER BY g.ledger_name ASC, sg.ledger_name ASC, l.ledger_name ASC");
 
 	    try (Connection conn = DbConnection.getConnection();
 	         PreparedStatement stmt = conn.prepareStatement(query.toString())) {
 
-	        for (int i = 0; i < params.size(); i++) {
-	            stmt.setString(i + 1, params.get(i));
-	        }
+	    	int paramIndex = 1;
+	    	for (String param : params) {
+	    	    stmt.setString(paramIndex++, param);
+	    	}
+
+	    	if (apVersion != 0) {
+	    	    stmt.setInt(paramIndex++, apVersion); // Corrected to setInt()
+	    	}
 
 	        ResultSet rs = stmt.executeQuery();
 	        while (rs.next()) {
@@ -158,6 +166,4 @@ public class LedgerDAO {
 
 	    return ledgers;
 	}
-
-
 }

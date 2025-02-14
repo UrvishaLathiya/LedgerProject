@@ -20,13 +20,13 @@ public class LedgerFilterController extends HttpServlet {
         String ledgerName = request.getParameter("ledgerName");
         String groupName = request.getParameter("groupName");
         String subGroupName = request.getParameter("subGroupName");
+        int apVersion = Integer.parseInt(request.getParameter("apVersion"));
         
         if (ledgerName != null) ledgerName = ledgerName.trim();
         if (groupName != null) groupName = groupName.trim();
         if (subGroupName != null) subGroupName = subGroupName.trim();
-
-        // Call DAO method to get filtered data
-        List<Ledger> filteredLedgers = LedgerDAO.getFilteredLedgers(ledgerName, groupName, subGroupName);
+        
+        List<Ledger> filteredLedgers = LedgerDAO.getFilteredLedgers(ledgerName, groupName, subGroupName, apVersion);
 
         // Store filtered data in request scope
         request.setAttribute("ledgerList", filteredLedgers);
