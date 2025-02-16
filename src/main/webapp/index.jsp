@@ -24,8 +24,20 @@
             Ledger: <input type="text" name="ledgerName" class="form-control me-2" placeholder="Enter Ledger Name">
             Group: <input type="text" name="groupName" class="form-control me-2" placeholder="Enter Group Name">
             Sub Group: <input type="text" name="subGroupName" class="form-control me-2" placeholder="Enter Sub Group Name">
-            APVersion: <input type="text" name="apVersion" class="form-control me-2" placeholder="Enter APVersion">
-            <button type="submit" class="btn btn-primary">Search</button>
+            <label for="apVersion" class="form-label">AP Version:</label>
+<select name="apVersion" id="apVersion" class="form-select">
+    <option value="">Select AP Version</option>
+    <%
+        List<Integer> apversions = (List<Integer>) request.getAttribute("apVersions");
+        if (apversions != null) {
+            for (Integer version : apversions) { %>
+                <option value="<%= version %>"><%= version %></option>
+            <% }
+        }
+    %>
+</select>
+
+	        <button type="submit" class="btn btn-primary">Search</button>
         </form><br><br>        
 
         <%

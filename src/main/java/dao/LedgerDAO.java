@@ -95,6 +95,19 @@ public class LedgerDAO {
         }
         return ledgers;  
     }
+    
+    public static List<Integer> getApVersions() throws SQLException{
+    	List<Integer> versions = new ArrayList<>();
+    	String query = "SELECT DISTINCT ap_version FROM master.ledger ORDER BY ap_version ASC ";
+    	try (Connection con = DbConnection.getConnection();
+    			PreparedStatement ps = con.prepareStatement(query);
+    			ResultSet rs = ps.executeQuery()){
+			while(rs.next()) {
+				versions.add(rs.getInt("ap_version"));
+			}
+		} 
+    	return versions;
+    }
 
     public static int getTotalCount(String ledgerName, String groupName, String subGroupName, Integer apVersion) throws SQLException {
         int count = 0;

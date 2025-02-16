@@ -24,7 +24,16 @@ public class LedgerFilterController extends HttpServlet {
         if (ledgerName != null) ledgerName = ledgerName.trim();
         if (groupName != null) groupName = groupName.trim();
         if (subGroupName != null) subGroupName = subGroupName.trim();
+        List<Integer> apVersions = null;
+        try {
+            apVersions = LedgerDAO.getApVersions();
+            request.setAttribute("apVersions", apVersions);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
 
+        // Convert apVersion to Integer (ensure it is a single value, not a List)
         Integer apVersion = null;
         if (apVersionStr != null && !apVersionStr.isEmpty()) {
             try {
@@ -33,6 +42,7 @@ public class LedgerFilterController extends HttpServlet {
                 apVersion = null;
             }
         }
+
 
         int pageNumber = 1;
         int pageSize = 20;
